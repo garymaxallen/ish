@@ -161,7 +161,7 @@ bool (*remove_user_default)(const char *name);
 //            kPreferenceThemeKey: @"Default",
 //        }];
         [_defaults registerDefaults:@{
-            kPreferenceFontSizeKey: @(20),
+            kPreferenceFontSizeKey: @(16),
             kPreferenceCapsLockMappingKey: @(CapsLockMapControl),
             kPreferenceOptionMappingKey: @(OptionMapNone),
             kPreferenceBacktickEscapeKey: @(NO),
