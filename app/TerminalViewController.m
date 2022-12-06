@@ -58,6 +58,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+//    [self listFonts];
     [self listViews];
     [self setKeyboardView];
 
@@ -95,6 +96,17 @@
             NSLog(@"view.class: %@", view.class);
             NSLog(@"view.restorationIdentifier: %@", view.restorationIdentifier);
             [view removeFromSuperview];
+        }
+    }
+}
+
+- (void)listFonts {
+    NSString *family;
+    NSString *font;
+    for (family in UIFont.familyNames) {
+        NSLog(@"family: %@", family);
+        for (font in [UIFont fontNamesForFamilyName:family]) {
+            NSLog(@"font: %@", font);
         }
     }
 }
