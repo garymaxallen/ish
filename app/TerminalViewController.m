@@ -57,6 +57,82 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self listViews];
+    [self setKeyboardView];
+
+    int bootError = [AppDelegate bootError];
+    if (bootError < 0) {
+        NSString *message = [NSString stringWithFormat:@"could not boot"];
+        NSString *subtitle = [NSString stringWithFormat:@"error code %d", bootError];
+        if (bootError == _EINVAL)
+            subtitle = [subtitle stringByAppendingString:@"\n(try reinstalling the app, see release notes for details)"];
+        [self showMessage:message subtitle:subtitle];
+        NSLog(@"boot failed with code %d", bootError);
+    }
+
+    self.terminal = self.terminal;
+    [self.termView becomeFirstResponder];
+
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center addObserver:self
+               selector:@selector(keyboardDidSomething:)
+                   name:UIKeyboardWillChangeFrameNotification
+                 object:nil];
+    [center addObserver:self
+               selector:@selector(keyboardDidSomething:)
+                   name:UIKeyboardDidChangeFrameNotification
+                 object:nil];
+    [center addObserver:self
+               selector:@selector(_updateBadge)
+                   name:FsUpdatedNotification
+                 object:nil];
+    
+//    [self setKeyboardView];
+
+}
+
+- (void)listViews {
+    for (UIView *view in [self.bar subviews])
+    {
+        if ([view isKindOfClass:[ArrowBarButton class]]){
+            NSLog(@"view.description: %@", view.description);
+            NSLog(@"view.class: %@", view.class);
+            [view removeFromSuperview];
+        }
+        
+        //        [view removeFromSuperview];
+    }
+}
+
+- (void)setKeyboardView {
+    [self.tabKey setTitle:@"TAB" forState:UIControlStateNormal];
+    [self.tabKey setImage:nil forState:UIControlStateNormal];
+    [self.tabKey.titleLabel setFont:[UIFont systemFontOfSize:16]];
+    
+    [self.controlKey setTitle:@"CTRL" forState:UIControlStateNormal];
+    [self.controlKey setImage:nil forState:UIControlStateNormal];
+    [self.controlKey.titleLabel setFont:[UIFont systemFontOfSize:12]];
+    
+    [self.escapeKey setImage:nil forState:UIControlStateNormal];
+    [self.escapeKey setTitle: @"ESC" forState: UIControlStateNormal];
+    [self.escapeKey.titleLabel setFont:[UIFont systemFontOfSize:16]];
+    
+    UIButton *leftbutton = [UIButton buttonWithType: UIButtonTypeSystem];
+    [leftbutton setFrame:CGRectMake(111, 0, 31, 43)];
+    [leftbutton setTitle:@"←" forState:UIControlStateNormal];
+    leftbutton.backgroundColor = UIColor.whiteColor;
+    leftbutton.layer.cornerRadius = 5;
+    leftbutton.layer.shadowOffset = CGSizeMake(0, 1);
+    leftbutton.layer.shadowOpacity = 0.4;
+    leftbutton.layer.shadowRadius = 0;
+    [self.bar addSubview:leftbutton];
+    
+
+}
+
+- (void)xxx_viewDidLoad {
+    [super viewDidLoad];
 
 #if !ISH_LINUX
     int bootError = [AppDelegate bootError];
