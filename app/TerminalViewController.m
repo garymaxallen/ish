@@ -95,13 +95,12 @@
 - (void)listViews {
     for (UIView *view in [self.bar subviews])
     {
-        if ([view isKindOfClass:[ArrowBarButton class]]){
+        if ([view isKindOfClass:[ArrowBarButton class]] || [view.accessibilityIdentifier isEqual: @"ggggg"]){
             NSLog(@"view.description: %@", view.description);
             NSLog(@"view.class: %@", view.class);
+            NSLog(@"view.restorationIdentifier: %@", view.restorationIdentifier);
             [view removeFromSuperview];
         }
-        
-        //        [view removeFromSuperview];
     }
 }
 
@@ -118,17 +117,113 @@
     [self.escapeKey setTitle: @"ESC" forState: UIControlStateNormal];
     [self.escapeKey.titleLabel setFont:[UIFont systemFontOfSize:16]];
     
-    UIButton *leftbutton = [UIButton buttonWithType: UIButtonTypeSystem];
-    [leftbutton setFrame:CGRectMake(111, 0, 31, 43)];
-    [leftbutton setTitle:@"←" forState:UIControlStateNormal];
-    leftbutton.backgroundColor = UIColor.whiteColor;
-    leftbutton.layer.cornerRadius = 5;
-    leftbutton.layer.shadowOffset = CGSizeMake(0, 1);
-    leftbutton.layer.shadowOpacity = 0.4;
-    leftbutton.layer.shadowRadius = 0;
-    [self.bar addSubview:leftbutton];
+    UIButton *leftButton = [UIButton buttonWithType: UIButtonTypeSystem];
+    [leftButton.titleLabel setFont:[UIFont systemFontOfSize:24]];
+    [leftButton setFrame:CGRectMake(111, 0, 31, 43)];
+    [leftButton setTitle:@"←" forState:UIControlStateNormal];
+    leftButton.backgroundColor = UIColor.whiteColor;
+    leftButton.layer.cornerRadius = 5;
+    leftButton.layer.shadowOffset = CGSizeMake(0, 1);
+    leftButton.layer.shadowOpacity = 0.4;
+    leftButton.layer.shadowRadius = 0;
+    [leftButton addTarget: self action: @selector(pressLeft) forControlEvents: UIControlEventTouchUpInside];
+    [self.bar addSubview:leftButton];
     
+    UIButton *rightButton = [UIButton buttonWithType: UIButtonTypeSystem];
+    [rightButton.titleLabel setFont:[UIFont systemFontOfSize:24]];
+    [rightButton setFrame:CGRectMake(148, 0, 31, 43)];
+    [rightButton setTitle:@"→" forState:UIControlStateNormal];
+    rightButton.backgroundColor = UIColor.whiteColor;
+    rightButton.layer.cornerRadius = 5;
+    rightButton.layer.shadowOffset = CGSizeMake(0, 1);
+    rightButton.layer.shadowOpacity = 0.4;
+    rightButton.layer.shadowRadius = 0;
+    [rightButton addTarget: self action: @selector(pressRight) forControlEvents: UIControlEventTouchUpInside];
+    [self.bar addSubview:rightButton];
+    
+    UIButton *upButton = [UIButton buttonWithType: UIButtonTypeSystem];
+    [upButton.titleLabel setFont:[UIFont systemFontOfSize:24]];
+    [upButton setFrame:CGRectMake(185, 0, 31, 43)];
+    [upButton setTitle:@"↑" forState:UIControlStateNormal];
+    upButton.backgroundColor = UIColor.whiteColor;
+    upButton.layer.cornerRadius = 5;
+    upButton.layer.shadowOffset = CGSizeMake(0, 1);
+    upButton.layer.shadowOpacity = 0.4;
+    upButton.layer.shadowRadius = 0;
+    [upButton addTarget: self action: @selector(pressUp) forControlEvents: UIControlEventTouchUpInside];
+    [self.bar addSubview:upButton];
+    
+    UIButton *downButton = [UIButton buttonWithType: UIButtonTypeSystem];
+    [downButton.titleLabel setFont:[UIFont systemFontOfSize:24]];
+    [downButton setFrame:CGRectMake(222, 0, 31, 43)];
+    [downButton setTitle:@"↓" forState:UIControlStateNormal];
+    downButton.backgroundColor = UIColor.whiteColor;
+    downButton.layer.cornerRadius = 5;
+    downButton.layer.shadowOffset = CGSizeMake(0, 1);
+    downButton.layer.shadowOpacity = 0.4;
+    downButton.layer.shadowRadius = 0;
+    [downButton addTarget: self action: @selector(pressDown) forControlEvents: UIControlEventTouchUpInside];
+    [self.bar addSubview:downButton];
+    
+    UIButton *slashButton = [UIButton buttonWithType: UIButtonTypeSystem];
+    [slashButton.titleLabel setFont:[UIFont systemFontOfSize:24]];
+    [slashButton setFrame:CGRectMake(259, 0, 31, 43)];
+    [slashButton setTitle:@"/" forState:UIControlStateNormal];
+    slashButton.backgroundColor = UIColor.whiteColor;
+    slashButton.layer.cornerRadius = 5;
+    slashButton.layer.shadowOffset = CGSizeMake(0, 1);
+    slashButton.layer.shadowOpacity = 0.4;
+    slashButton.layer.shadowRadius = 0;
+    [slashButton addTarget: self action: @selector(pressSlash) forControlEvents: UIControlEventTouchUpInside];
+    [self.bar addSubview:slashButton];
+    
+    UIButton *hyphenButton = [UIButton buttonWithType: UIButtonTypeSystem];
+    [hyphenButton.titleLabel setFont:[UIFont systemFontOfSize:24]];
+    [hyphenButton setFrame:CGRectMake(296, 0, 31, 43)];
+    [hyphenButton setTitle:@"-" forState:UIControlStateNormal];
+    hyphenButton.backgroundColor = UIColor.whiteColor;
+    hyphenButton.layer.cornerRadius = 5;
+    hyphenButton.layer.shadowOffset = CGSizeMake(0, 1);
+    hyphenButton.layer.shadowOpacity = 0.4;
+    hyphenButton.layer.shadowRadius = 0;
+    [hyphenButton addTarget: self action: @selector(pressHyphen) forControlEvents: UIControlEventTouchUpInside];
+    [self.bar addSubview:hyphenButton];
+    
+    [self.pasteButton setTitle:@"P" forState:UIControlStateNormal];
+    [self.pasteButton setImage:nil forState:UIControlStateNormal];
+    [self.pasteButton.titleLabel setFont:[UIFont systemFontOfSize:24]];
+    [self.pasteButton setFrame:CGRectMake(333, 0, 31, 43)];
+    self.pasteButton.backgroundColor = UIColor.whiteColor;
+    
+    [self.hideKeyboardButton setTitle:@"⌨" forState:UIControlStateNormal];
+    [self.hideKeyboardButton setImage:nil forState:UIControlStateNormal];
+    [self.hideKeyboardButton.titleLabel setFont:[UIFont systemFontOfSize:24]];
+    [self.hideKeyboardButton setFrame:CGRectMake(370, 0, 31, 43)];
+    self.hideKeyboardButton.backgroundColor = UIColor.whiteColor;
+}
 
+- (void)pressLeft{
+    [self.termView insertText:[self.terminal arrow:'D']];
+}
+
+- (void)pressRight{
+    [self.termView insertText:[self.terminal arrow:'C']];
+}
+
+- (void)pressUp{
+    [self.termView insertText:[self.terminal arrow:'A']];
+}
+
+- (void)pressDown{
+    [self.termView insertText:[self.terminal arrow:'B']];
+}
+
+- (void)pressSlash{
+    [self.termView insertText:@"/"];
+}
+
+- (void)pressHyphen{
+    [self.termView insertText:@"-"];
 }
 
 - (void)xxx_viewDidLoad {
