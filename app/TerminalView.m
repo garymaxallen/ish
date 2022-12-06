@@ -64,19 +64,19 @@ struct rowcol {
     scrollbarView.bounces = NO;
     [self addSubview:scrollbarView];
 
-    UserPreferences *prefs = UserPreferences.shared;
-    [prefs observe:@[@"capsLockMapping", @"optionMapping", @"backtickMapEscape", @"overrideControlSpace"]
-           options:0 owner:self usingBlock:^(typeof(self) self) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            self->_keyCommands = nil;
-        });
-    }];
-    [prefs observe:@[@"colorScheme", @"fontFamily", @"fontSize", @"theme", @"cursorStyle", @"blinkCursor"]
-           options:0 owner:self usingBlock:^(typeof(self) self) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self _updateStyle];
-        });
-    }];
+//    UserPreferences *prefs = UserPreferences.shared;
+//    [prefs observe:@[@"capsLockMapping", @"optionMapping", @"backtickMapEscape", @"overrideControlSpace"]
+//           options:0 owner:self usingBlock:^(typeof(self) self) {
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            self->_keyCommands = nil;
+//        });
+//    }];
+//    [prefs observe:@[@"colorScheme", @"fontFamily", @"fontSize", @"theme", @"cursorStyle", @"blinkCursor"]
+//           options:0 owner:self usingBlock:^(typeof(self) self) {
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            [self _updateStyle];
+//        });
+//    }];
 
     self.markedRange = [UITextRange new];
     self.selectedRange = [UITextRange new];

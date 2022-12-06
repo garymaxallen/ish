@@ -83,13 +83,8 @@
                selector:@selector(keyboardDidSomething:)
                    name:UIKeyboardDidChangeFrameNotification
                  object:nil];
-    [center addObserver:self
-               selector:@selector(_updateBadge)
-                   name:FsUpdatedNotification
-                 object:nil];
     
-//    [self setKeyboardView];
-
+//    self.termView.keyboardAppearance = UIKeyboardAppearanceDark;
 }
 
 - (void)listViews {
@@ -492,6 +487,42 @@
 }
 
 - (void)keyboardDidSomething:(NSNotification *)notification {
+    if (self.ignoreKeyboardMotion)
+        return;
+
+    CGRect keyboardFrame = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    keyboardFrame = [self.view convertRect:keyboardFrame fromView:self.view.window];
+    if (CGRectEqualToRect(keyboardFrame, CGRectZero))
+        return;
+    NSLog(@"%@ %@", notification.name, [NSValue valueWithCGRect:keyboardFrame]);
+    self.hasExternalKeyboard = keyboardFrame.size.height < 100;
+    CGFloat pad = self.view.bounds.size.height - keyboardFrame.origin.y;
+    
+    pad += (UIScreen.mainScreen.bounds.size.height - self.view.frame.size.height) / 2;
+
+    if (pad != keyboardFrame.size.height && keyboardFrame.size.width != UIScreen.mainScreen.bounds.size.width) {
+        pad = MAX(self.view.safeAreaInsets.bottom, self.termView.inputAccessoryView.frame.size.height);
+    }
+    // NSLog(@"pad %f", pad);
+    self.bottomConstraint.constant = pad;
+
+    BOOL initialLayout = self.termView.needsUpdateConstraints;
+    [self.view setNeedsUpdateConstraints];
+    if (!initialLayout) {
+        // if initial layout hasn't happened yet, the terminal view is going to be at a really weird place, so animating it is going to look really bad
+        NSNumber *interval = notification.userInfo[UIKeyboardAnimationDurationUserInfoKey];
+        NSNumber *curve = notification.userInfo[UIKeyboardAnimationCurveUserInfoKey];
+        [UIView animateWithDuration:interval.doubleValue
+                              delay:0
+                            options:curve.integerValue << 16
+                         animations:^{
+                             [self.view layoutIfNeeded];
+                         }
+                         completion:nil];
+    }
+}
+
+- (void)xxx_keyboardDidSomething:(NSNotification *)notification {
     if (self.ignoreKeyboardMotion)
         return;
 

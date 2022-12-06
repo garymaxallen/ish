@@ -146,18 +146,32 @@ bool (*remove_user_default)(const char *name);
     self = [super init];
     if (self) {
         _defaults = [NSUserDefaults standardUserDefaults];
+//        [_defaults registerDefaults:@{
+//            kPreferenceFontSizeKey: @(12),
+//            kPreferenceCapsLockMappingKey: @(CapsLockMapControl),
+//            kPreferenceOptionMappingKey: @(OptionMapNone),
+//            kPreferenceBacktickEscapeKey: @(NO),
+//            kPreferenceDisableDimmingKey: @(NO),
+//            kPreferenceLaunchCommandKey: @[@"/bin/login", @"-f", @"root"],
+//            kPreferenceBootCommandKey: @[@"/sbin/init"],
+//            kPreferenceBlinkCursorKey: @(NO),
+//            kPreferenceCursorStyleKey: @(CursorStyleBlock),
+//            kPreferenceHideStatusBarKey: @(NO),
+//            kPreferenceColorSchemeKey: @(ColorSchemeMatchSystem),
+//            kPreferenceThemeKey: @"Default",
+//        }];
         [_defaults registerDefaults:@{
-            kPreferenceFontSizeKey: @(12),
+            kPreferenceFontSizeKey: @(20),
             kPreferenceCapsLockMappingKey: @(CapsLockMapControl),
             kPreferenceOptionMappingKey: @(OptionMapNone),
             kPreferenceBacktickEscapeKey: @(NO),
             kPreferenceDisableDimmingKey: @(NO),
             kPreferenceLaunchCommandKey: @[@"/bin/login", @"-f", @"root"],
             kPreferenceBootCommandKey: @[@"/sbin/init"],
-            kPreferenceBlinkCursorKey: @(NO),
+            kPreferenceBlinkCursorKey: @(YES),
             kPreferenceCursorStyleKey: @(CursorStyleBlock),
             kPreferenceHideStatusBarKey: @(NO),
-            kPreferenceColorSchemeKey: @(ColorSchemeMatchSystem),
+            kPreferenceColorSchemeKey: @(ColorSchemeAlwaysDark),
             kPreferenceThemeKey: @"Default",
         }];
         // https://webkit.org/blog/10247/new-webkit-features-in-safari-13-1/
