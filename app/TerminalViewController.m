@@ -184,17 +184,17 @@
     [slashButton addTarget: self action: @selector(pressSlash) forControlEvents: UIControlEventTouchUpInside];
     [self.bar addSubview:slashButton];
     
-    UIButton *hyphenButton = [UIButton buttonWithType: UIButtonTypeSystem];
-    [hyphenButton.titleLabel setFont:[UIFont systemFontOfSize:24]];
-    [hyphenButton setFrame:CGRectMake(296, 0, 31, 43)];
-    [hyphenButton setTitle:@"-" forState:UIControlStateNormal];
-    hyphenButton.backgroundColor = UIColor.whiteColor;
-    hyphenButton.layer.cornerRadius = 5;
-    hyphenButton.layer.shadowOffset = CGSizeMake(0, 1);
-    hyphenButton.layer.shadowOpacity = 0.4;
-    hyphenButton.layer.shadowRadius = 0;
-    [hyphenButton addTarget: self action: @selector(pressHyphen) forControlEvents: UIControlEventTouchUpInside];
-    [self.bar addSubview:hyphenButton];
+    UIButton *pipeButton = [UIButton buttonWithType: UIButtonTypeSystem];
+    [pipeButton.titleLabel setFont:[UIFont systemFontOfSize:24]];
+    [pipeButton setFrame:CGRectMake(296, 0, 31, 43)];
+    [pipeButton setTitle:@"|" forState:UIControlStateNormal];
+    pipeButton.backgroundColor = UIColor.whiteColor;
+    pipeButton.layer.cornerRadius = 5;
+    pipeButton.layer.shadowOffset = CGSizeMake(0, 1);
+    pipeButton.layer.shadowOpacity = 0.4;
+    pipeButton.layer.shadowRadius = 0;
+    [pipeButton addTarget: self action: @selector(pressPipe) forControlEvents: UIControlEventTouchUpInside];
+    [self.bar addSubview:pipeButton];
     
     [self.pasteButton setTitle:@"P" forState:UIControlStateNormal];
     [self.pasteButton setImage:nil forState:UIControlStateNormal];
@@ -229,8 +229,8 @@
     [self.termView insertText:@"/"];
 }
 
-- (void)pressHyphen{
-    [self.termView insertText:@"-"];
+- (void)pressPipe{
+    [self.termView insertText:@"|"];
 }
 
 - (void)xxx_viewDidLoad {
