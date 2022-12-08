@@ -173,17 +173,18 @@ bool (*remove_user_default)(const char *name);
             kPreferenceHideStatusBarKey: @(NO),
             kPreferenceColorSchemeKey: @(ColorSchemeAlwaysDark),
             kPreferenceThemeKey: @"Default",
+            kPreferenceFontFamilyKey: kSystemMonospacedFontName,
         }];
         // https://webkit.org/blog/10247/new-webkit-features-in-safari-13-1/
-        if (@available(iOS 13.4, *)) {
-            [_defaults registerDefaults:@{
-                kPreferenceFontFamilyKey: kSystemMonospacedFontName,
-            }];
-        } else {
-            [_defaults registerDefaults:@{
-                kPreferenceFontFamilyKey: @"Menlo",
-            }];
-        }
+//        if (@available(iOS 13.4, *)) {
+//            [_defaults registerDefaults:@{
+//                kPreferenceFontFamilyKey: kSystemMonospacedFontName,
+//            }];
+//        } else {
+//            [_defaults registerDefaults:@{
+//                kPreferenceFontFamilyKey: @"Menlo",
+//            }];
+//        }
         get_all_defaults_keys = get_all_defaults_keys_impl;
         get_friendly_name = get_friendly_name_impl;
         get_underlying_name = get_underlying_name_impl;
