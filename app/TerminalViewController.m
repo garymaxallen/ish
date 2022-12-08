@@ -207,6 +207,18 @@
     [self.hideKeyboardButton.titleLabel setFont:[UIFont systemFontOfSize:24]];
     [self.hideKeyboardButton setFrame:CGRectMake(370, 0, 31, 43)];
     self.hideKeyboardButton.backgroundColor = UIColor.whiteColor;
+    
+//    UIButton *hyphenButton = [UIButton buttonWithType: UIButtonTypeSystem];
+//    [hyphenButton.titleLabel setFont:[UIFont systemFontOfSize:24]];
+//    [hyphenButton setFrame:CGRectMake(407, 0, 31, 43)];
+//    [hyphenButton setTitle:@"-" forState:UIControlStateNormal];
+//    hyphenButton.backgroundColor = UIColor.whiteColor;
+//    hyphenButton.layer.cornerRadius = 5;
+//    hyphenButton.layer.shadowOffset = CGSizeMake(0, 1);
+//    hyphenButton.layer.shadowOpacity = 0.4;
+//    hyphenButton.layer.shadowRadius = 0;
+//    [hyphenButton addTarget: self action: @selector(pressHyphen) forControlEvents: UIControlEventTouchUpInside];
+//    [self.bar addSubview:hyphenButton];
 }
 
 - (void)pressLeft{
@@ -231,6 +243,10 @@
 
 - (void)pressPipe{
     [self.termView insertText:@"|"];
+}
+
+- (void)pressHyphen{
+    [self.termView insertText:@"-"];
 }
 
 - (void)xxx_viewDidLoad {
