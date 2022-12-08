@@ -174,7 +174,6 @@
 		BB77636726E486A7008DB44A /* fakefs.c in Sources */ = {isa = PBXBuildFile; fileRef = BB10E5C2248DBA7B009C7A74 /* fakefs.c */; };
 		BB792B5B1F96D90D00FFB7A4 /* Terminal.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB792B591F96D90D00FFB7A4 /* Terminal.storyboard */; };
 		BB792B5D1F96D90D00FFB7A4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BB792B5C1F96D90D00FFB7A4 /* Assets.xcassets */; };
-		BB792B601F96D90D00FFB7A4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB792B5E1F96D90D00FFB7A4 /* LaunchScreen.storyboard */; };
 		BB88F4942154760800A341FD /* FileProviderExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = BB88F4932154760800A341FD /* FileProviderExtension.m */; };
 		BB88F4972154760800A341FD /* FileProviderItem.m in Sources */ = {isa = PBXBuildFile; fileRef = BB88F4962154760800A341FD /* FileProviderItem.m */; };
 		BB88F49A2154760800A341FD /* FileProviderEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = BB88F4992154760800A341FD /* FileProviderEnumerator.m */; };
@@ -211,7 +210,6 @@
 		BBEF197E268066D1001225BD /* colontildehash.png in Resources */ = {isa = PBXBuildFile; fileRef = BB4A922F24EDA55C002F5A96 /* colontildehash.png */; };
 		BBEF197F268066D1001225BD /* metal.png in Resources */ = {isa = PBXBuildFile; fileRef = BBC8298624EE5853009D042C /* metal.png */; };
 		BBEF1980268066D1001225BD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BB792B5C1F96D90D00FFB7A4 /* Assets.xcassets */; };
-		BBEF1981268066D1001225BD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB792B5E1F96D90D00FFB7A4 /* LaunchScreen.storyboard */; };
 		BBEF1982268066D1001225BD /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = BBBF7B5B2415CDBB00EC4C14 /* Settings.bundle */; };
 		BBEF1983268066D1001225BD /* pydann1.png in Resources */ = {isa = PBXBuildFile; fileRef = BB0F553123A0AB9B0032A2A1 /* pydann1.png */; };
 		BBEF1984268066D1001225BD /* About.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BBBCE7E521D2F02200CA00B3 /* About.storyboard */; };
@@ -641,7 +639,6 @@
 		BB792B571F96D90D00FFB7A4 /* TerminalViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TerminalViewController.m; sourceTree = "<group>"; };
 		BB792B5A1F96D90D00FFB7A4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Terminal.storyboard; sourceTree = "<group>"; };
 		BB792B5C1F96D90D00FFB7A4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		BB792B5F1F96D90D00FFB7A4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BB792B611F96D90D00FFB7A4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BB792B621F96D90D00FFB7A4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		BB7D93352087C2880008DA78 /* xX_main_Xx.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = xX_main_Xx.h; sourceTree = "<group>"; };
@@ -1034,7 +1031,6 @@
 				BBBF7B5B2415CDBB00EC4C14 /* Settings.bundle */,
 				BB792B5C1F96D90D00FFB7A4 /* Assets.xcassets */,
 				BB1B9A4123A5E92A00414052 /* Icons */,
-				BB792B5E1F96D90D00FFB7A4 /* LaunchScreen.storyboard */,
 				BB792B611F96D90D00FFB7A4 /* Info.plist */,
 				BB792B621F96D90D00FFB7A4 /* main.m */,
 				BB0B848D2586A4B100208600 /* Configs */,
@@ -1689,7 +1685,6 @@
 				BB38599927BCEE6B000A1082 /* dollarblock1.png in Resources */,
 				BB38599C27BCEE6B000A1082 /* sprite64.png in Resources */,
 				BB792B5D1F96D90D00FFB7A4 /* Assets.xcassets in Resources */,
-				BB792B601F96D90D00FFB7A4 /* LaunchScreen.storyboard in Resources */,
 				BB3859A427BCEE6B000A1082 /* ishcolontildehash.png in Resources */,
 				BB38599D27BCEE6B000A1082 /* icon.png in Resources */,
 				BBBF7B5C2415CDBB00EC4C14 /* Settings.bundle in Resources */,
@@ -1732,7 +1727,6 @@
 				BBEF197E268066D1001225BD /* colontildehash.png in Resources */,
 				BBEF197F268066D1001225BD /* metal.png in Resources */,
 				BBEF1980268066D1001225BD /* Assets.xcassets in Resources */,
-				BBEF1981268066D1001225BD /* LaunchScreen.storyboard in Resources */,
 				BB38597D27BCEC78000A1082 /* dollarblock1.png in Resources */,
 				BBEF1982268066D1001225BD /* Settings.bundle in Resources */,
 				BBEF1983268066D1001225BD /* pydann1.png in Resources */,
@@ -2228,14 +2222,6 @@
 				BB792B5A1F96D90D00FFB7A4 /* Base */,
 			);
 			name = Terminal.storyboard;
-			sourceTree = "<group>";
-		};
-		BB792B5E1F96D90D00FFB7A4 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				BB792B5F1F96D90D00FFB7A4 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
 		BBBCE7E521D2F02200CA00B3 /* About.storyboard */ = {
