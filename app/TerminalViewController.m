@@ -92,9 +92,9 @@
     for (UIView *view in [self.bar subviews])
     {
         if ([view isKindOfClass:[ArrowBarButton class]] || [view.accessibilityIdentifier isEqual: @"ggggg"]){
-            NSLog(@"view.description: %@", view.description);
-            NSLog(@"view.class: %@", view.class);
-            NSLog(@"view.restorationIdentifier: %@", view.restorationIdentifier);
+//            NSLog(@"view.description: %@", view.description);
+//            NSLog(@"view.class: %@", view.class);
+//            NSLog(@"view.restorationIdentifier: %@", view.restorationIdentifier);
             [view removeFromSuperview];
         }
     }
