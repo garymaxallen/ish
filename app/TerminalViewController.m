@@ -80,12 +80,13 @@
                selector:@selector(keyboardDidSomething:)
                    name:UIKeyboardWillChangeFrameNotification
                  object:nil];
+    
     [center addObserver:self
                selector:@selector(keyboardDidSomething:)
                    name:UIKeyboardDidChangeFrameNotification
                  object:nil];
     
-//    self.termView.keyboardAppearance = UIKeyboardAppearanceDark;
+    [self _updateStyleFromPreferences:NO];
 }
 
 - (void)listViews {
@@ -515,14 +516,14 @@
 }
 
 - (void)keyboardDidSomething:(NSNotification *)notification {
-    if (self.ignoreKeyboardMotion)
-        return;
+//    if (self.ignoreKeyboardMotion)
+//        return;
 
     CGRect keyboardFrame = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
     keyboardFrame = [self.view convertRect:keyboardFrame fromView:self.view.window];
-    if (CGRectEqualToRect(keyboardFrame, CGRectZero))
-        return;
-    NSLog(@"%@ %@", notification.name, [NSValue valueWithCGRect:keyboardFrame]);
+//    if (CGRectEqualToRect(keyboardFrame, CGRectZero))
+//        return;
+//    NSLog(@"%@ %@", notification.name, [NSValue valueWithCGRect:keyboardFrame]);
     self.hasExternalKeyboard = keyboardFrame.size.height < 100;
     CGFloat pad = self.view.bounds.size.height - keyboardFrame.origin.y;
     
