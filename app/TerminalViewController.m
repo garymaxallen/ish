@@ -23,7 +23,8 @@
 @interface TerminalViewController () <UIGestureRecognizerDelegate>
 
 @property UITapGestureRecognizer *tapRecognizer;
-@property (weak, nonatomic) IBOutlet TerminalView *termView;
+//@property (weak, nonatomic) IBOutlet TerminalView *termView;
+@property TerminalView *termView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomConstraint;
 
 @property (weak, nonatomic) IBOutlet UIButton *tabKey;
@@ -71,22 +72,30 @@
         [self showMessage:message subtitle:subtitle];
         NSLog(@"boot failed with code %d", bootError);
     }
+    
+//    self.termView = [[TerminalView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+//    [self.view addSubview: self.termView];
 
     self.terminal = self.terminal;
     [self.termView becomeFirstResponder];
+    self.termView.keyboardAppearance = UIKeyboardAppearanceDark;
+    self.view.backgroundColor = UIColor.blackColor;
 
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver:self
                selector:@selector(keyboardDidSomething:)
                    name:UIKeyboardWillChangeFrameNotification
                  object:nil];
-    
+
     [center addObserver:self
                selector:@selector(keyboardDidSomething:)
                    name:UIKeyboardDidChangeFrameNotification
                  object:nil];
     
-    [self _updateStyleFromPreferences:NO];
+    [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(processExited:)
+                                               name:ProcessExitedNotification
+                                             object:nil];
 }
 
 - (void)listViews {
@@ -323,20 +332,20 @@
     [self _updateBadge];
 }
 
-- (void)awakeFromNib {
-    [super awakeFromNib];
-#if !ISH_LINUX
-    [NSNotificationCenter.defaultCenter addObserver:self
-                                           selector:@selector(processExited:)
-                                               name:ProcessExitedNotification
-                                             object:nil];
-#else
-    [NSNotificationCenter.defaultCenter addObserver:self
-                                           selector:@selector(kernelPanicked:)
-                                               name:KernelPanicNotification
-                                             object:nil];
-#endif
-}
+//- (void)awakeFromNib {
+//    [super awakeFromNib];
+//#if !ISH_LINUX
+//    [NSNotificationCenter.defaultCenter addObserver:self
+//                                           selector:@selector(processExited:)
+//                                               name:ProcessExitedNotification
+//                                             object:nil];
+//#else
+//    [NSNotificationCenter.defaultCenter addObserver:self
+//                                           selector:@selector(kernelPanicked:)
+//                                               name:KernelPanicNotification
+//                                             object:nil];
+//#endif
+//}
 
 - (void)viewDidAppear:(BOOL)animated {
     [AppDelegate maybePresentStartupMessageOnViewController:self];
@@ -524,7 +533,7 @@
     if (CGRectEqualToRect(keyboardFrame, CGRectZero))
         return;
 //    NSLog(@"%@ %@", notification.name, [NSValue valueWithCGRect:keyboardFrame]);
-    self.hasExternalKeyboard = keyboardFrame.size.height < 100;
+//    self.hasExternalKeyboard = keyboardFrame.size.height < 100;
     CGFloat pad = self.view.bounds.size.height - keyboardFrame.origin.y;
     
     pad += (UIScreen.mainScreen.bounds.size.height - self.view.frame.size.height) / 2;
