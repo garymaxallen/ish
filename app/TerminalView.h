@@ -24,7 +24,8 @@ enum OverrideAppearance {
 
 @property (nonatomic) UIKeyboardAppearance keyboardAppearance;
 
-@property (weak) IBOutlet UIInputView *inputAccessoryView;
+//@property (weak) IBOutlet UIInputView *inputAccessoryView;
+@property UIView *inputAccessoryView;
 @property (weak) IBOutlet UIButton *controlKey;
 
 @property (nonatomic) Terminal *terminal;

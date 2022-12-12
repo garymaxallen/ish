@@ -53,8 +53,9 @@ struct rowcol {
 @synthesize tokenizer;
 @synthesize canBecomeFirstResponder;
 
-- (void)awakeFromNib {
-    [super awakeFromNib];
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    
     self.inputAssistantItem.leadingBarButtonGroups = @[];
     self.inputAssistantItem.trailingBarButtonGroups = @[];
 
@@ -64,6 +65,22 @@ struct rowcol {
     scrollbarView.bounces = NO;
     [self addSubview:scrollbarView];
 
+    self.markedRange = [UITextRange new];
+    self.selectedRange = [UITextRange new];
+}
+
+
+//- (void)awakeFromNib {
+//    [super awakeFromNib];
+//    self.inputAssistantItem.leadingBarButtonGroups = @[];
+//    self.inputAssistantItem.trailingBarButtonGroups = @[];
+//
+//    ScrollbarView *scrollbarView = self.scrollbarView = [[ScrollbarView alloc] initWithFrame:self.bounds];
+//    scrollbarView.delegate = self;
+//    scrollbarView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+//    scrollbarView.bounces = NO;
+//    [self addSubview:scrollbarView];
+//
 //    UserPreferences *prefs = UserPreferences.shared;
 //    [prefs observe:@[@"capsLockMapping", @"optionMapping", @"backtickMapEscape", @"overrideControlSpace"]
 //           options:0 owner:self usingBlock:^(typeof(self) self) {
@@ -77,10 +94,10 @@ struct rowcol {
 //            [self _updateStyle];
 //        });
 //    }];
-
-    self.markedRange = [UITextRange new];
-    self.selectedRange = [UITextRange new];
-}
+//
+//    self.markedRange = [UITextRange new];
+//    self.selectedRange = [UITextRange new];
+//}
 
 - (void)dealloc {
     self.terminal = nil;

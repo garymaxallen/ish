@@ -28,21 +28,8 @@ static NSString *const TerminalUUID = @"TerminalUUID";
         self.window.rootViewController = vc;
         return;
     }
-
-    TerminalViewController *vc = (TerminalViewController *) self.window.rootViewController;
-    vc.sceneSession = session;
-    if (session.stateRestorationActivity == nil) {
-        [vc startNewSession];
-    } else {
-        self.terminalUUID = session.stateRestorationActivity.userInfo[TerminalUUID];
-        [vc reconnectSessionFromTerminalUUID:
-         [[NSUUID alloc] initWithUUIDString:self.terminalUUID]];
-    }
-    
-//    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-//    self.window.windowScene = (UIWindowScene *)scene;
 //
-//    TerminalViewController *vc = [[TerminalViewController alloc] init];
+//    TerminalViewController *vc = (TerminalViewController *) self.window.rootViewController;
 //    vc.sceneSession = session;
 //    if (session.stateRestorationActivity == nil) {
 //        [vc startNewSession];
@@ -51,9 +38,22 @@ static NSString *const TerminalUUID = @"TerminalUUID";
 //        [vc reconnectSessionFromTerminalUUID:
 //         [[NSUUID alloc] initWithUUIDString:self.terminalUUID]];
 //    }
-//    self.window.rootViewController = vc;
-//    self.window.backgroundColor = [UIColor blackColor];
-//    [self.window makeKeyAndVisible];
+    
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.window.windowScene = (UIWindowScene *)scene;
+
+    TerminalViewController *vc = [[TerminalViewController alloc] init];
+    vc.sceneSession = session;
+    if (session.stateRestorationActivity == nil) {
+        [vc startNewSession];
+    } else {
+        self.terminalUUID = session.stateRestorationActivity.userInfo[TerminalUUID];
+        [vc reconnectSessionFromTerminalUUID:
+         [[NSUUID alloc] initWithUUIDString:self.terminalUUID]];
+    }
+    self.window.rootViewController = vc;
+    self.window.backgroundColor = [UIColor blackColor];
+    [self.window makeKeyAndVisible];
 }
 
 - (NSUserActivity *)stateRestorationActivityForScene:(UIScene *)scene {

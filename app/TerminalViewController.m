@@ -25,6 +25,7 @@
 @property UITapGestureRecognizer *tapRecognizer;
 //@property (weak, nonatomic) IBOutlet TerminalView *termView;
 @property TerminalView *termView;
+@property UIView *kbView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomConstraint;
 
 @property (weak, nonatomic) IBOutlet UIButton *tabKey;
@@ -61,7 +62,7 @@
     
 //    [self listFonts];
     [self listViews];
-    [self setKeyboardView];
+    [self setKeyboardView2];
 
     int bootError = [AppDelegate bootError];
     if (bootError < 0) {
@@ -73,13 +74,15 @@
         NSLog(@"boot failed with code %d", bootError);
     }
     
-//    self.termView = [[TerminalView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-//    [self.view addSubview: self.termView];
+    self.termView = [[TerminalView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    [self.view addSubview: self.termView];
 
     self.terminal = self.terminal;
+    self.termView.canBecomeFirstResponder = true;
+    self.termView.inputAccessoryView = self.kbView;
     [self.termView becomeFirstResponder];
     self.termView.keyboardAppearance = UIKeyboardAppearanceDark;
-    self.view.backgroundColor = UIColor.blackColor;
+//    self.view.backgroundColor = UIColor.systemBlueColor;
 
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver:self
@@ -91,7 +94,7 @@
                selector:@selector(keyboardDidSomething:)
                    name:UIKeyboardDidChangeFrameNotification
                  object:nil];
-    
+
     [NSNotificationCenter.defaultCenter addObserver:self
                                            selector:@selector(processExited:)
                                                name:ProcessExitedNotification
@@ -119,6 +122,84 @@
             NSLog(@"font: %@", font);
         }
     }
+}
+
+- (void)setKeyboardView2 {
+    UIButton *escapeKey = [UIButton buttonWithType: UIButtonTypeSystem];
+    [escapeKey setFrame: CGRectMake(0.0, 0.0, 40.0, 40.0)];
+    [escapeKey setTitle: @"ESC" forState: UIControlStateNormal];
+    [escapeKey setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [escapeKey setBackgroundColor: [UIColor whiteColor]];
+    [escapeKey addTarget: self action: @selector(pressEscape:) forControlEvents: UIControlEventTouchUpInside];
+    
+    UIButton *tabKey = [UIButton buttonWithType: UIButtonTypeSystem];
+    [tabKey setFrame: CGRectMake(40.0, 0.0, 40.0, 40.0)];
+    [tabKey setTitle: @"TAB" forState: UIControlStateNormal];
+    [tabKey setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [tabKey setBackgroundColor: [UIColor whiteColor]];
+    [tabKey addTarget: self action: @selector(pressTab) forControlEvents: UIControlEventTouchUpInside];
+    
+//    self.controlKey = [UIButton buttonWithType: UIButtonTypeSystem];
+//    [self.controlKey setFrame: CGRectMake(80.0, 0.0, 40.0, 40.0)];
+//    [self.controlKey setTitle: @"CTRL" forState: UIControlStateNormal];
+//    [self.controlKey setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+//    [self.controlKey setBackgroundColor: [UIColor whiteColor]];
+//    [self.controlKey addTarget: self action: @selector(pressControl:) forControlEvents: UIControlEventTouchUpInside];
+//    self.termView.controlKey = self.controlKey;
+    
+    UIButton *leftButton = [UIButton buttonWithType: UIButtonTypeSystem];
+    [leftButton setFrame: CGRectMake(120.0, 0.0, 40.0, 40.0)];
+    [leftButton setTitle: @"←" forState: UIControlStateNormal];
+    [leftButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [leftButton setBackgroundColor: [UIColor whiteColor]];
+    [leftButton addTarget: self action: @selector(pressLeft) forControlEvents: UIControlEventTouchUpInside];
+    
+    UIButton *rightButton = [UIButton buttonWithType: UIButtonTypeSystem];
+    [rightButton setFrame: CGRectMake(160.0, 0.0, 40.0, 40.0)];
+    [rightButton setTitle: @"→" forState: UIControlStateNormal];
+    [rightButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [rightButton setBackgroundColor: [UIColor whiteColor]];
+    [rightButton addTarget: self action: @selector(pressRight) forControlEvents: UIControlEventTouchUpInside];
+    
+    UIButton *upButton = [UIButton buttonWithType: UIButtonTypeSystem];
+    [upButton setFrame: CGRectMake(200.0, 0.0, 40.0, 40.0)];
+    [upButton setTitle: @"↑" forState: UIControlStateNormal];
+    [upButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [upButton setBackgroundColor: [UIColor whiteColor]];
+    [upButton addTarget: self action: @selector(pressUp) forControlEvents: UIControlEventTouchUpInside];
+    
+    UIButton *downButton = [UIButton buttonWithType: UIButtonTypeSystem];
+    [downButton setFrame: CGRectMake(240.0, 0.0, 40.0, 40.0)];
+    [downButton setTitle: @"↓" forState: UIControlStateNormal];
+    [downButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [downButton setBackgroundColor: [UIColor whiteColor]];
+    [downButton addTarget: self action: @selector(pressDown) forControlEvents: UIControlEventTouchUpInside];
+    
+    UIButton *pasteButton = [UIButton buttonWithType: UIButtonTypeSystem];
+    [pasteButton setFrame: CGRectMake(280.0, 0.0, 40.0, 40.0)];
+    [pasteButton setTitle: @"🅿️" forState: UIControlStateNormal];
+    [pasteButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [pasteButton setBackgroundColor: [UIColor whiteColor]];
+    [pasteButton addTarget: self action: @selector(pressPaste) forControlEvents: UIControlEventTouchUpInside];
+    
+    UIButton *hideKeyboardButton = [UIButton buttonWithType: UIButtonTypeSystem];
+    [hideKeyboardButton setFrame: CGRectMake(320.0, 0.0, 40.0, 40.0)];
+    [hideKeyboardButton setTitle: @"⌨️" forState: UIControlStateNormal];
+    [hideKeyboardButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [hideKeyboardButton setBackgroundColor: [UIColor whiteColor]];
+    [hideKeyboardButton addTarget: self action: @selector(hideKeyboard) forControlEvents: UIControlEventTouchUpInside];
+    
+    self.kbView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, UIScreen.mainScreen.bounds.size.width, 40)];
+    self.kbView.backgroundColor = [UIColor whiteColor];
+    [self.kbView addSubview:escapeKey];
+    [self.kbView addSubview:tabKey];
+//    [kbView addSubview:self.controlKey];
+    [self.kbView addSubview:leftButton];
+    [self.kbView addSubview:rightButton];
+    [self.kbView addSubview:upButton];
+    [self.kbView addSubview:downButton];
+    [self.kbView addSubview:pasteButton];
+    [self.kbView addSubview:hideKeyboardButton];
 }
 
 - (void)setKeyboardView {
@@ -257,6 +338,28 @@
 
 - (void)pressHyphen{
     [self.termView insertText:@"-"];
+}
+
+- (void)hideKeyboard{
+    [self.termView resignFirstResponder];
+}
+
+- (void)pressEscape {
+    [self.termView insertText:@"\x1b"];
+}
+- (void)pressTab {
+    [self.termView insertText:@"\t"];
+}
+
+- (void)pressPaste {
+    NSString *string = UIPasteboard.generalPasteboard.string;
+    if (string) {
+        [self.termView insertText:string];
+    }
+}
+
+- (void)pressControl {
+    self.controlKey.selected = !self.controlKey.selected;
 }
 
 - (void)xxx_viewDidLoad {
